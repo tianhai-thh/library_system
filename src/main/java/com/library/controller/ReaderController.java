@@ -46,6 +46,11 @@ public class ReaderController {
         return readerInfo;
     }
 
+    @RequestMapping("/toregister")
+    public String toregister(){
+        return "register";
+    }
+
     @RequestMapping("allreaders.html")
     public ModelAndView allBooks() {
         ArrayList<ReaderInfo> readers = readerInfoService.readerInfos();

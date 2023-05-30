@@ -48,6 +48,18 @@ public class ReaderInfo implements Serializable {
         return address;
     }
 
+    @Override
+    public String toString() {
+        return "ReaderInfo{" +
+                "reader_id=" + reader_id +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", birth=" + birth +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
+
     public void setAddress(String address) {
         this.address = address;
     }

@@ -1,5 +1,7 @@
 package com.library.service;
 
+import com.library.bean.Admin;
+import com.library.bean.ReaderCard;
 import com.library.bean.ReaderInfo;
 import com.library.dao.ReaderCardDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,6 @@ import org.springframework.stereotype.Service;
 public class ReaderCardService {
     @Autowired
     private ReaderCardDao readerCardDao;
-
     public boolean addReaderCard(ReaderInfo readerInfo, String password){
         return  readerCardDao.addReaderCard(readerInfo,password)>0;
     }

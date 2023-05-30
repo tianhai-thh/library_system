@@ -56,7 +56,9 @@ background-attachment: fixed;">
                 <input type="checkbox" id="remember">记住密码
             </label>
         </div>
-
+        <div id="subDiv">
+            <a href="${pageContext.request.contextPath}/toregister">没有账号？-> 注册</a>
+        </div>
         <p style="text-align: right;color: red;position: absolute" id="info"></p><br/>
         <button id="loginButton"  class="btn btn-primary  btn-block">登陆
         </button>
