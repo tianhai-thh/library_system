@@ -65,9 +65,9 @@ public class LoginController {
         System.out.println(checkCodeGen);
         //比对
         if(!checkCodeGen.equalsIgnoreCase(checkCode)){
-            request.setAttribute("register_msg","验证码错误");
-            request.getRequestDispatcher("redirect:/login.html").forward(request,response);
-            return null;
+            res.put("stateCode", "3");
+            res.put("msg", "验证码错误！");
+            return res;
         }
 
         if (isAdmin) {
