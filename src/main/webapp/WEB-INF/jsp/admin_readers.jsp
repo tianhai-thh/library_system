@@ -55,6 +55,7 @@ background-attachment: fixed;">
                 <th>读者号</th>
                 <th>姓名</th>
                 <th>性别</th>
+                <th>邮箱</th>
                 <th>生日</th>
                 <th>地址</th>
                 <th>电话</th>
@@ -68,6 +69,7 @@ background-attachment: fixed;">
                     <td><c:out value="${reader.readerId}"></c:out></td>
                     <td><c:out value="${reader.name}"></c:out></td>
                     <td><c:out value="${reader.sex}"></c:out></td>
+                    <td><c:out value="${reader.email}"></c:out> </td>
                     <td><c:out value="${reader.birth}"></c:out></td>
                     <td><c:out value="${reader.address}"></c:out></td>
                     <td><c:out value="${reader.phone}"></c:out></td>

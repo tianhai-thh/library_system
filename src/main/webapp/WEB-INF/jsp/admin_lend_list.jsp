@@ -11,6 +11,19 @@
             $('#header').load('admin_header.html');
         })
     </script>
+    <script type = "text/javascript" >
+
+        function del() {
+            var msg = "确定要删除吗？";
+            if (confirm(msg) == true) {
+                alert('确认删除');
+                return true;
+            } else {
+                alert('取消删除');
+                return false;
+            }
+        }
+    </script>
 </head>
 <body background="img/u5.jpeg" style=" background-repeat:no-repeat ;
 background-size:100% 100%;
@@ -49,7 +62,12 @@ background-attachment: fixed;">
             <tr>
                 <th>流水号</th>
                 <th>图书号</th>
+                <th>书名</th>
+                <th>作者</th>
+                <th>出版社</th>
+                <th>ISBN</th>
                 <th>读者证号</th>
+                <th>读者名</th>
                 <th>借出日期</th>
                 <th>归还日期</th>
                 <th>删除</th>
@@ -60,13 +78,18 @@ background-attachment: fixed;">
                 <tr>
                     <td><c:out value="${alog.ser_num}"></c:out></td>
                     <td><c:out value="${alog.bookId}"></c:out></td>
+                    <td><c:out value="${alog.book.name}"></c:out> </td>
+                    <td><c:out value="${alog.book.author}"></c:out> </td>
+                    <td><c:out value="${alog.book.publish}"></c:out> </td>
+                    <td><c:out value="${alog.book.isbn}"></c:out> </td>
                     <td><c:out value="${alog.readerId}"></c:out></td>
+                    <td><c:out value="${alog.readerInfo.name}"></c:out> </td>
                     <td><c:out value="${alog.lendDate}"></c:out></td>
                     <td><c:out value="${alog.backDate}"></c:out></td>
                     <td>
                         <a href="deletelend.html?serNum=<c:out value='${alog.ser_num}'></c:out>">
                             <c:if test="${!empty alog.backDate}">
-                                <button type="button" class="btn btn-danger btn-xs">删除</button>
+                                <button type="button" class="btn btn-danger btn-xs" onclick="javascript:return del()">删除</button>
                             </c:if>
                             <c:if test="${empty alog.backDate}">
                                 <button type="button" class="btn btn-default btn-xs" disabled="disabled">删除</button>

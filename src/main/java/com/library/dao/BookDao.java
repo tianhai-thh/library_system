@@ -6,7 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class BookDao {
@@ -15,22 +17,37 @@ public class BookDao {
     @Resource
     private SqlSessionTemplate sqlSessionTemplate;
 
-    public int matchBook(final String searchWord) {
-        String search = "%" + searchWord + "%";
-        return sqlSessionTemplate.selectOne(NAMESPACE + "matchBook", search);
+    public int matchBook(String author,String publish,String name) {
+        Map<String, Object> paramMap = new HashMap<>();
+        String author1 = "%" + author + "%";
+        String publish1 = "%" + publish + "%";
+        String name1 = "%" + name + "%";
+        paramMap.put("author", author1);
+        paramMap.put("publish", publish1);
+        paramMap.put("name", name1);
+        return sqlSessionTemplate.selectOne(NAMESPACE + "matchBook", paramMap);
     }
 
-    public ArrayList<Book> queryBook(final String searchWord) {
-        String search = "%" + searchWord + "%";
-        List<Book> result = sqlSessionTemplate.selectList(NAMESPACE + "queryBook", search);
+    public ArrayList<Book> queryBook(String author,String publish,String name) {
+        Map<String, Object> paramMap = new HashMap<>();
+        String author1 = "%" + author + "%";
+        String publish1 = "%" + publish + "%";
+        String name1 = "%" + name + "%";
+        paramMap.put("author", author1);
+        paramMap.put("publish", publish1);
+        paramMap.put("name", name1);
+        List<Book> result = sqlSessionTemplate.selectList(NAMESPACE + "queryBook", paramMap);
         return (ArrayList<Book>) result;
     }
-
     public ArrayList<Book> getAllBooks() {
         List<Book> result = sqlSessionTemplate.selectList(NAMESPACE + "getAllBooks");
         return (ArrayList<Book>) result;
     }
 
+    public ArrayList<Book> getAllBooksByZero(long reader_id) {
+        List<Book> result = sqlSessionTemplate.selectList(NAMESPACE + "getAllBooksByZero", reader_id);
+        return (ArrayList<Book>) result;
+    }
     public int addBook(final Book book) {
         return sqlSessionTemplate.insert(NAMESPACE + "addBook", book);
     }

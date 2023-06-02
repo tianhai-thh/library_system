@@ -20,11 +20,19 @@
         <table>
 
             <tr>
+                <td>邮箱</td>
+                <td class="inputs">
+                    <input name="email" type="text" id="email" required>
+                    <br>
+                    <span id="email_err" class="err_msg" >${register_msg}</span>
+                </td>
+
+            </tr>
+            <tr>
                 <td>用户名</td>
                 <td class="inputs">
                     <input name="name" type="text" id="name " required>
                     <br>
-                    <span id="username_err" class="err_msg" >${register_msg}</span>
                 </td>
 
             </tr>

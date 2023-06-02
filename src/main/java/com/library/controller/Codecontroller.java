@@ -44,6 +44,7 @@ public class Codecontroller extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         //1.获取邮箱和密码
+        String email = request.getParameter("email");
         String name = request.getParameter("name");
         String password = request.getParameter("password");
 
@@ -65,8 +66,19 @@ public class Codecontroller extends HttpServlet {
 
         //2.封装为user对象
         ReaderCard user = new ReaderCard();
+        user.setEmail(email);
         user.setName(name);
         user.setPassword(password);
+
+        System.out.println(email);
+        System.out.println(service);
+        System.out.println(service.getReaderCard(email));
+        if(!service.getReaderCard(email))
+        {
+            request.setAttribute("register_msg","该邮箱已存在");
+            request.getRequestDispatcher("/toregister").forward(request,response);
+            return;
+        }
 
         System.out.println(user);
 
@@ -89,14 +101,16 @@ public class Codecontroller extends HttpServlet {
         readerInfo.setSex(sex);
         readerInfo.setPhone(phone);
         readerInfo.setBirth(date);
+        readerInfo.setEmail(email);
         //3.调用service注册
 //        boolean flag = (service.register(user) > 0) && (readerInfoService.addReaderInfo(readerInfo) > 0);
 
+        System.out.println(readerInfo);
         long readerId = readerInfoService.addReaderInfo(readerInfo);
         readerInfo.setReaderId(readerId);
 
         //4.判断注册成功与否
-        if(readerId > 0 && service.addReaderCard(readerInfo, password)){
+        if(readerId > 0 && service.addReaderCard(readerInfo,email,password)){
             request.setAttribute("register_msg","注册成功，请登录");
             request.getRequestDispatcher("").forward(request,response);
         }else {

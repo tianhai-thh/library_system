@@ -37,6 +37,10 @@ background-attachment: fixed;">
                     <input type="text" class="form-control" name="sex" id="sex"  value="${readerinfo.sex}" >
                 </div>
                 <div class="input-group">
+                    <span class="input-group-addon">邮箱</span>
+                    <input type="text" class="form-control" name="email" id="email" value="${readerinfo.email}" >
+                </div>
+                <div class="input-group">
                     <span class="input-group-addon">生日</span>
                     <input type="text" class="form-control" name="birth" id="birth"  value="${readerinfo.birth}" >
                 </div>
@@ -52,7 +56,7 @@ background-attachment: fixed;">
                 <input type="submit" value="确定" class="btn btn-success btn-sm" class="text-left">
                 <script>
                     $("#edit").submit(function () {
-                        if($("#name").val()==''||$("#sex").val()==''||$("#birth").val()==''||$("#address").val()==''||$("#phone").val()==''){
+                        if($("#name").val()==''||$("#sex").val()==''||$("#birth").val()==''||$("#address").val()==''||$("#phone").val()==''||$("#email").val()==''){
                             alert("请填入完整图书信息！");
                             return false;
                         }

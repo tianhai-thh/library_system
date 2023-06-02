@@ -36,9 +36,9 @@ public class BookController {
     }
 
     @RequestMapping("/querybook.html")
-    public ModelAndView queryBookDo(String searchWord) {
-        if (bookService.matchBook(searchWord)) {
-            ArrayList<Book> books = bookService.queryBook(searchWord);
+    public ModelAndView queryBookDo(String author,String publish,String name) {
+        if (bookService.matchBook(author,publish,name)) {
+            ArrayList<Book> books = bookService.queryBook(author,publish,name);
             ModelAndView modelAndView = new ModelAndView("admin_books");
             modelAndView.addObject("books", books);
             return modelAndView;
@@ -48,9 +48,9 @@ public class BookController {
     }
 
     @RequestMapping("/reader_querybook_do.html")
-    public ModelAndView readerQueryBookDo(String searchWord) {
-        if (bookService.matchBook(searchWord)) {
-            ArrayList<Book> books = bookService.queryBook(searchWord);
+    public ModelAndView readerQueryBookDo(String author,String publish,String name) {
+        if (bookService.matchBook(author,publish,name)) {
+            ArrayList<Book> books = bookService.queryBook(author,publish,name);
             ModelAndView modelAndView = new ModelAndView("reader_books");
             modelAndView.addObject("books", books);
             return modelAndView;
@@ -58,7 +58,6 @@ public class BookController {
             return new ModelAndView("reader_books", "error", "没有匹配的图书");
         }
     }
-
     @RequestMapping("/admin_books.html")
     public ModelAndView adminBooks() {
         ArrayList<Book> books = bookService.getAllBooks();
@@ -133,8 +132,12 @@ public class BookController {
 
     @RequestMapping("/reader_books.html")
     public ModelAndView readerBooks(HttpServletRequest request) {
-        ArrayList<Book> books = bookService.getAllBooks();
         ReaderCard readerCard = (ReaderCard) request.getSession().getAttribute("readercard");
+        System.out.println("id -> " + readerCard.getReader_id());
+        ArrayList<Book> books = bookService.getAllBooksByZero(readerCard.getReader_id());
+        System.out.println();
+        System.out.println("resderBooks");
+        System.out.println(readerCard);
         ArrayList<Lend> myAllLendList = lendService.myLendList(readerCard.getReaderId());
         ArrayList<Long> myLendList = new ArrayList<>();
         for (Lend lend : myAllLendList) {

@@ -48,6 +48,10 @@ background-attachment: fixed;">
             <thead>
             <tr>
                 <th>图书号</th>
+                <th>书名</th>
+                <th>作者</th>
+                <th>出版社</th>
+                <th>ISBN</th>
                 <th>借出日期</th>
                 <th>归还日期</th>
                 <th>状态</th>
@@ -57,6 +61,10 @@ background-attachment: fixed;">
             <c:forEach items="${list}" var="alog">
                 <tr>
                     <td><c:out value="${alog.bookId}"></c:out></td>
+                    <td><c:out value="${alog.book.name}"></c:out> </td>
+                    <td><c:out value="${alog.book.author}"></c:out> </td>
+                    <td><c:out value="${alog.book.publish}"></c:out> </td>
+                    <td><c:out value="${alog.book.isbn}"></c:out> </td>
                     <td><c:out value="${alog.lendDate}"></c:out></td>
                     <td><c:out value="${alog.backDate}"></c:out></td>
                     <c:if test="${empty alog.backDate}">

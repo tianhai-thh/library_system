@@ -31,6 +31,10 @@ background-attachment: fixed;">
                     <input type="text" class="form-control" name="sex" id="sex"  value="${readerInfo.sex}" >
                 </div>
                 <div class="input-group">
+                    <span  class="input-group-addon">邮箱</span>
+                    <input type="text" class="form-control" name="email" id="email"  value="${readerInfo.email}" >
+                </div>
+                <div class="input-group">
                     <span class="input-group-addon">生日</span>
                     <input type="text" class="form-control" name="birth" id="birth"  value="${readerInfo.birth}" >
                 </div>

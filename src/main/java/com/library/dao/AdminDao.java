@@ -1,5 +1,7 @@
 package com.library.dao;
 
+import com.library.bean.Admin;
+import com.library.bean.ReaderCard;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -14,13 +16,19 @@ public class AdminDao {
     @Resource
     private SqlSessionTemplate sqlSessionTemplate;
 
-    public int getMatchCount(final long admin_id, final String password) {
+    public int getMatchCount(final String email, final String password) {
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("admin_id", admin_id);
+        paramMap.put("email", email);
         paramMap.put("password", password);
         return sqlSessionTemplate.selectOne(NAMESPACE + "getMatchCount", paramMap);
     }
 
+    public Admin getAdmin(String email)
+    {
+        Map<String, Object>map = new HashMap<>();
+        map.put("email", email);
+        return sqlSessionTemplate.selectOne(NAMESPACE + "getAdmin", map);
+    }
     public int resetPassword(final long admin_id, final String password) {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("admin_id", admin_id);

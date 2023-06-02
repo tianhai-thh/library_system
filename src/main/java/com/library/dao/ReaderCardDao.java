@@ -1,5 +1,6 @@
 package com.library.dao;
 
+import com.library.bean.Admin;
 import com.library.bean.ReaderCard;
 import com.library.bean.ReaderInfo;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -17,13 +18,19 @@ public class ReaderCardDao {
 
     private final static String NAMESPACE = "com.library.dao.ReaderCardDao.";
 
-    public int getIdMatchCount(final long reader_id, final String password) {
+    public int getIdMatchCount(final String email, final String password) {
         Map<String, Object> map = new HashMap<>();
-        map.put("reader_id", reader_id);
+        map.put("email", email);
         map.put("password", password);
         return sqlSessionTemplate.selectOne(NAMESPACE + "getIdMatchCount", map);
     }
 
+    public ReaderCard getReaderCard(String email)
+    {
+        Map<String, Object>map = new HashMap<>();
+        map.put("email", email);
+        return sqlSessionTemplate.selectOne(NAMESPACE + "getReaderCard", map);
+    }
     public ReaderCard findReaderByReaderId(final long reader_id) {
         return sqlSessionTemplate.selectOne(NAMESPACE + "findReaderByReaderId", reader_id);
     }
@@ -35,11 +42,12 @@ public class ReaderCardDao {
         return sqlSessionTemplate.update(NAMESPACE + "resetPassword", map);
     }
 
-    public int addReaderCard(final ReaderInfo readerInfo, final String password) {
+    public int addReaderCard(final ReaderInfo readerInfo, final String email, final String password) {
         String username = readerInfo.getName();
         long reader_id = readerInfo.getReaderId();
         Map<String, Object> map = new HashMap<>();
         map.put("reader_id", reader_id);
+        map.put("email", email);
         map.put("username", username);
         map.put("password", password);
         return sqlSessionTemplate.update(NAMESPACE + "addReaderCard", map);

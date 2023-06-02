@@ -25,7 +25,11 @@ background-attachment: fixed;">
             <form action="reader_add_do.html" method="post" id="readeredit" >
                 <div class="input-group" style="padding-top: 20px;">
                     <span  class="input-group-addon">密码</span>
-                    <input  type="password" class="form-control" name="password" id="password" ">
+                    <input  type="password" class="form-control" name="password" id="password" >
+                </div>
+                <div class="input-group" style="padding-top: 20px;">
+                    <span  class="input-group-addon">邮箱</span>
+                    <input type="text" class="form-control" name="email" id="email"  >
                 </div>
                 <div class="input-group" style="padding-top: 20px;">
                     <span class="input-group-addon">姓名</span>

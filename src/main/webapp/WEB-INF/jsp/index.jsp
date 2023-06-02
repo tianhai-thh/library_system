@@ -44,8 +44,8 @@ background-attachment: fixed;">
     </div>
     <div class="panel-body">
         <div class="form-group">
-            <label for="id">账号</label>
-            <input type="text" class="form-control" id="id" placeholder="请输入账号">
+            <label for="email">邮箱</label>
+            <input type="text" class="form-control" id="email" placeholder="请输入邮箱">
         </div>
         <div class="form-group">
             <label for="passwd">密码</label>
@@ -82,7 +82,7 @@ background-attachment: fixed;">
 
     </script>
     <script>
-        $("#id").keyup(
+/*        $("#id").keyup(
             function () {
                 if(isNaN($("#id").val())){
                     $("#info").text("提示:账号只能为数字");
@@ -91,11 +91,11 @@ background-attachment: fixed;">
                     $("#info").text("");
                 }
             }
-        )
+        )*/
         // 记住登录信息
         function rememberLogin(username, password, checked) {
             Cookies.set('loginStatus', {
-                username: username,
+                email: email,
                 password: password,
                 remember: checked
             }, {expires: 30, path: ''})
@@ -107,7 +107,7 @@ background-attachment: fixed;">
                 var loginStatus
                 try {
                     loginStatus = JSON.parse(loginStatusText);
-                    $('#id').val(loginStatus.username);
+                    $('#email').val(loginStatus.email);
                     $('#passwd').val(loginStatus.password);
                     $("#remember").prop('checked',true);
                 } catch (__) {}
@@ -117,38 +117,38 @@ background-attachment: fixed;">
         // 设置登录信息
         setLoginStatus();
         $("#loginButton").click(function () {
-            var id =$("#id").val();
+            var email =$("#email").val();
             var passwd=$("#passwd").val();
             var checkCode=$("#checkCode").val();
             var remember=$("#remember").prop('checked');
-            if (id == '') {
-                $("#info").text("提示:账号不能为空");
+            if (email == '') {
+                $("#info").text("提示:邮箱不能为空");
             }
             else if( passwd ==''){
                 $("#info").text("提示:密码不能为空");
             }
-            else if(isNaN( id )){
+/*            else if(isNaN( id )){
                 $("#info").text("提示:账号必须为数字");
-            }
+            }*/
             else {
                 $.ajax({
                     type: "POST",
                     url: "/api/loginCheck",
                     data: {
-                        id:id ,
+                        email:email ,
                         passwd: passwd,
                         checkCode:checkCode
                     },
                     dataType: "json",
                     success: function(data) {
                         if (data.stateCode.trim() === "0") {
-                            $("#info").text("提示:账号或密码错误！");
+                            $("#info").text("提示:邮箱或密码错误！");
                         } else if (data.stateCode.trim() === "1") {
                             $("#info").text("提示:登陆成功，跳转中...");
                             window.location.href="/admin_main.html";
                         } else if (data.stateCode.trim() === "2") {
                             if(remember){
-                                rememberLogin(id,passwd,remember);
+                                rememberLogin(email,passwd,remember);
                             }else {
                                 Cookies.remove('loginStatus');
                             }

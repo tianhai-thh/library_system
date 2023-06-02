@@ -33,6 +33,7 @@ public class LendDao {
         Map<String, Object> map = new HashMap<>();
         map.put("book_id", book_id);
         map.put("reader_id", reader_id);
+        System.out.println("map -> " + map);
         return sqlSessionTemplate.insert(NAMESPACE + "lendBookOne", map);
     }
 

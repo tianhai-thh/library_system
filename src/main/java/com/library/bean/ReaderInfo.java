@@ -11,6 +11,36 @@ public class ReaderInfo implements Serializable {
     private Date birth;
     private String address;
     private String phone;
+    private String email;
+
+    @Override
+    public String toString() {
+        return "ReaderInfo{" +
+                "reader_id=" + reader_id +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", birth=" + birth +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
+    public long getReader_id() {
+        return reader_id;
+    }
+
+    public void setReader_id(long reader_id) {
+        this.reader_id = reader_id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public long getReaderId() {
         return reader_id;
@@ -46,18 +76,6 @@ public class ReaderInfo implements Serializable {
 
     public String getAddress() {
         return address;
-    }
-
-    @Override
-    public String toString() {
-        return "ReaderInfo{" +
-                "reader_id=" + reader_id +
-                ", name='" + name + '\'' +
-                ", sex='" + sex + '\'' +
-                ", birth=" + birth +
-                ", address='" + address + '\'' +
-                ", phone='" + phone + '\'' +
-                '}';
     }
 
     public void setAddress(String address) {

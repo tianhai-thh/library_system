@@ -48,11 +48,11 @@ public class LoginController {
     @RequestMapping(value = "/api/loginCheck", method = RequestMethod.POST)
     @ResponseBody
     Object loginCheck(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        long id = Long.parseLong(request.getParameter("id"));
+        String email = request.getParameter("email");
         String passwd = request.getParameter("passwd");
         System.out.println(passwd);
-        boolean isReader = loginService.hasMatchReader(id, passwd);
-        boolean isAdmin = loginService.hasMatchAdmin(id, passwd);
+        boolean isReader = loginService.hasMatchReader(email, passwd);
+        boolean isAdmin = loginService.hasMatchAdmin(email, passwd);
         HashMap<String, String> res = new HashMap<>();
 
         System.out.println(1);
@@ -70,18 +70,22 @@ public class LoginController {
             return res;
         }
 
+
         if (isAdmin) {
-            Admin admin = new Admin();
-            admin.setAdminId(id);
+            Admin admin = loginService.getAdmin(email);
+/*            admin.setEmail(email);
             admin.setPassword(passwd);
             String username = loginService.getAdminUsername(id);
-            admin.setUsername(username);
+            admin.setUsername(username);*/
             request.getSession().setAttribute("admin", admin);
             res.put("stateCode", "1");
             res.put("msg", "管理员登陆成功！");
         } else if (isReader) {
-            ReaderCard readerCard = loginService.findReaderCardByReaderId(id);
+            ReaderCard readerCard = loginService.getReaderCard(email);
+//            ReaderCard readerCard = loginService.findReaderCardByReaderId(readerCard1.getReaderId());
             request.getSession().setAttribute("readercard", readerCard);
+            request.getSession().setAttribute("readercardemail", email);
+            System.out.println(readerCard);
             res.put("stateCode", "2");
             res.put("msg", "读者登陆成功！");
         } else {
