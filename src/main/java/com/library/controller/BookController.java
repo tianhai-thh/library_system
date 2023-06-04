@@ -1,6 +1,7 @@
 package com.library.controller;
 
 import com.library.bean.Book;
+import com.library.bean.ClassInfo;
 import com.library.bean.Lend;
 import com.library.bean.ReaderCard;
 import com.library.service.BookService;
@@ -36,9 +37,9 @@ public class BookController {
     }
 
     @RequestMapping("/querybook.html")
-    public ModelAndView queryBookDo(String author,String publish,String name) {
-        if (bookService.matchBook(author,publish,name)) {
-            ArrayList<Book> books = bookService.queryBook(author,publish,name);
+    public ModelAndView queryBookDo(String author,String publish,String name, String type) {
+        if (bookService.matchBook(author,publish,name, type)) {
+            ArrayList<Book> books = bookService.queryBook(author,publish,name, type);
             ModelAndView modelAndView = new ModelAndView("admin_books");
             modelAndView.addObject("books", books);
             return modelAndView;
@@ -48,9 +49,10 @@ public class BookController {
     }
 
     @RequestMapping("/reader_querybook_do.html")
-    public ModelAndView readerQueryBookDo(String author,String publish,String name) {
-        if (bookService.matchBook(author,publish,name)) {
-            ArrayList<Book> books = bookService.queryBook(author,publish,name);
+    public ModelAndView readerQueryBookDo(String author,String publish,String name, String type) {
+        System.out.println(type);
+        if (bookService.matchBook(author,publish,name, type)) {
+            ArrayList<Book> books = bookService.queryBook(author,publish,name, type);
             ModelAndView modelAndView = new ModelAndView("reader_books");
             modelAndView.addObject("books", books);
             return modelAndView;
@@ -60,9 +62,20 @@ public class BookController {
     }
     @RequestMapping("/admin_books.html")
     public ModelAndView adminBooks() {
-        ArrayList<Book> books = bookService.getAllBooks();
+        ArrayList<Book> book = bookService.getAllBooks();
+/*        ArrayList<Book> books = new ArrayList<>();
+        System.out.println("是否有ClassInfo");*/
+/*        for(Book temp : book)
+        {
+*//*            ClassInfo classInfo = bookService.FindClassInfo(temp.getClass_id());
+            temp.setClassInfo(classInfo);
+            System.out.println(bookService.queryname(temp.getClass_id()));
+            System.out.println(classInfo);*//*
+            Book book1 = bookService.getAllBooks1(temp.getClass_id());
+            books.add(book1);
+        }*/
         ModelAndView modelAndView = new ModelAndView("admin_books");
-        modelAndView.addObject("books", books);
+        modelAndView.addObject("books", book);
         return modelAndView;
     }
 
@@ -133,12 +146,9 @@ public class BookController {
     @RequestMapping("/reader_books.html")
     public ModelAndView readerBooks(HttpServletRequest request) {
         ReaderCard readerCard = (ReaderCard) request.getSession().getAttribute("readercard");
-        System.out.println("id -> " + readerCard.getReader_id());
-        ArrayList<Book> books = bookService.getAllBooksByZero(readerCard.getReader_id());
-        System.out.println();
-        System.out.println("resderBooks");
-        System.out.println(readerCard);
+        System.out.println(1);
         ArrayList<Lend> myAllLendList = lendService.myLendList(readerCard.getReaderId());
+        ArrayList<Book> books = bookService.getAllBooksByReader(readerCard.getReader_id());
         ArrayList<Long> myLendList = new ArrayList<>();
         for (Lend lend : myAllLendList) {
             // 是否已归还

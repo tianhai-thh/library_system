@@ -32,6 +32,10 @@ background-attachment: fixed;">
             <label for="name">图书名</label>
             <input type="text" placeholder="输入图书名" class="form-control" id="name" name="name">
         </div>
+        <div class="form-group">
+            <label for="type">类型</label>
+            <input type="text" placeholder="输入类型" class="form-control" id="type"  class="form-control" name="type">
+        </div>
         <input type="submit" value="搜索" class="btn btn-default">
     </form>
     <script>
@@ -39,8 +43,9 @@ background-attachment: fixed;">
             var author=$("#author").val();
             var publish=$("#publish").val();
             var name=$("#name").val();
+            var type=$("#type").val();
             // console.log(val);
-            if(author=='' && publish == '' && name == ''){
+            if(author=='' && publish == '' && name == '' && type == ''){
                 alert("请输入关键字");
                 return false;
             }
@@ -83,6 +88,7 @@ background-attachment: fixed;">
                 <th>ISBN</th>
                 <th>价格</th>
                 <th>剩余数量</th>
+                <th>类别</th>
                 <th>详情</th>
                 <th>编辑</th>
                 <th>删除</th>
@@ -97,6 +103,7 @@ background-attachment: fixed;">
                 <td><c:out value="${book.isbn}"></c:out></td>
                 <td><c:out value="${book.price}"></c:out></td>
                 <td><c:out value="${book.number}"></c:out></td>
+                <td><c:out value="${book.class_name}"></c:out></td>
                 <td><a href="admin_book_detail.html?bookId=<c:out value="${book.bookId}"></c:out>">
                     <button type="button" class="btn btn-success btn-xs">详情</button>
                 </a></td>
