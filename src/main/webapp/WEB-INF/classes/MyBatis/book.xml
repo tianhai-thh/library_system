@@ -38,6 +38,23 @@
         GROUP BY book_info.book_id, book_info.name
     </select>
     <select id="queryBook" resultType="com.library.bean.Book" >
+<!--        select * from book_info,class_info
+        where
+        <if test="name!=null">
+            name like  #{name}
+        </if>
+        <if test="author!=null">
+            and author like #{author}
+        </if>
+        <if test="publish!=null">
+            and  publish like #{publish}
+        </if>
+        <if test="class_name!=null">
+/*            and book_info.class_id in(
+                select class_id from class_info where class_name like #{class_name}
+            )*/
+            and  (class_name like #{class_name} and class_info.class_id = book_info.class_id )
+        </if>-->
         select * from book_info,class_info
         where
         <if test="name!=null">
